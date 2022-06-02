@@ -8,14 +8,14 @@ import (
 	"net/http"
 	"net/http/httputil"
 
-	"github.com/pusher/pusher-http-go"
+	"github.com/pusher/pusher-http-go/v5"
 )
 
 var client pusher.Client
 
 func init() {
 	client = pusher.Client{
-		AppId:  "1",
+		AppID:  "1",
 		Key:    "278d525bdf162c739803",
 		Secret: "7ad3753142a6693b25b9",
 		Host:   ":8080",
@@ -25,7 +25,7 @@ func init() {
 func pusherPresenceAuth(res http.ResponseWriter, req *http.Request) {
 	log.Println("Presence Request")
 	presenceData := pusher.MemberData{
-		UserId:   "1",
+		UserID:   "1",
 		UserInfo: map[string]string{},
 	}
 
@@ -54,7 +54,7 @@ func pusherPrivateAuth(res http.ResponseWriter, req *http.Request) {
 }
 
 func triggerMessage(res http.ResponseWriter, _ *http.Request) {
-	_, err := client.Trigger("private-messages", "messages", "The message from server")
+	err := client.Trigger("private-messages", "messages", "The message from server")
 	if err != nil {
 		panic(err)
 	}
@@ -80,7 +80,7 @@ func hookcallback(res http.ResponseWriter, r *http.Request) {
 		panic(err)
 	}
 
-	_, err = client.Trigger("private-webhook", event.Events[0].Name, "The Webhoook from server")
+	err = client.Trigger("private-webhook", event.Events[0].Name, "The Webhoook from server")
 	if err != nil {
 		panic(err)
 	}
