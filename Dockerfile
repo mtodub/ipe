@@ -4,6 +4,7 @@ ADD . /build/
 WORKDIR /build 
 RUN apk add git gcc musl-dev
 RUN go build -o ipe ./cmd
+
 FROM alpine
 USER root
 RUN  mkdir -p /config
